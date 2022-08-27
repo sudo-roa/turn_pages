@@ -10,3 +10,5 @@ function toggle(){
     nextcontent.classList.toggle("is-turned");
     nextchildcontent.classList.toggle("is-turned");
 }
+
+console.log(number)
