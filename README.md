@@ -36,6 +36,7 @@ bodyの閉じタグ手前に記述
 ## References
 - [pure CSS3 Page Flip Effect](http://www.romancortes.com/blog/pure-css3-page-flip-effect/)
 - [raw.githack.com](https://raw.githack.com/)
+- [各種GitHub CDNでblobを配れるのか実験](https://qiita.com/okuoku/items/9c72a88662831d774742)
 
 ## License
 turn_pages.js is under [MIT license](https://en.wikipedia.org/wiki/MIT_License)
