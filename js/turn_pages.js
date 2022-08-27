@@ -1,5 +1,4 @@
 //--------------- style ---------------
-
 styles = {
     "tp_book": [
         "position: relative;",
@@ -18,17 +17,87 @@ styles = {
         "left: 50%;",
         "box-shadow: 10px 20px 20px rgba(0, 0, 0, 0.16);"
     ],
-    "left_page_r":[
-
+    "left_r":[
+        "width: 50%;",
+        "height: 200%;",
+        "position: absolute;",
+        "top: -3%;",
+        "left: -3%;",
+        "z-index: 2;",
+        "transform-origin: 0% 0%;",
+        "transform: translate(0%, 0%) rotate(-51deg);",
+        "transition-duration: 1s;",
+        "overflow: hidden;"
     ],
-    "right_page_r":[
-
+    "right_r":[
+        "width: 50%;",
+        "height: 200%;",
+        "position: absolute;",
+        "top: -33.3%;",
+        "left: 48.4%;",
+        "z-index: 2;",
+        "transform-origin: 0% 0%;",
+        "transform: translate(0%, 0%) rotate(-51deg);",
+        "transition-duration: 1s;",
+        "overflow: hidden;"
     ],
-    "left_page_p":[
-
+    "left_r_is-turned":[
+        "top: 0%;",
+        "left: 0%;",
+        "transform: translate(0%, 0%) rotate(0deg);" 
     ],
-    "right_page_p":[
-
+    "right_r_is-turned":[
+        "top: 0%;",
+        "left: 50%;",
+        "transform: rotate(0deg);"
+    ],
+    "left_p":[
+        "background-color: lightblue;",
+        "width: 90%;",
+        "height: 40%;",
+        "position: absolute;",
+        "top:40.2%;",
+        "left: 119.1%;",
+        "transform: rotate(-38deg);",
+        "transition-duration: 1s;",
+        "box-shadow: 10px 20px 20px rgba(0, 0, 0, 0.16);"
+    ],
+    "right_p":[
+        "background-color: wheat;",
+        "width: 90%;",
+        "height: 40%;",
+        "z-index: 3;",
+        "position: absolute;",
+        "top: 18.7%;",
+        "left: -111.9%;",
+        "transform: rotate(51deg);",   
+        "transition-duration: 1s;",
+        "box-shadow: 10px 20px 20px rgba(0, 0, 0, 0.16);"
+    ],
+    "left_p_is-turned":[
+        "background-color: lightblue;",
+        "top: 5%;",
+        "left: 10%;",
+        "transform: rotate(0deg);"
+    ],
+    "right_p_is-turned":[
+        "transform-origin: -12.2% 99.1%;",
+        "top: 5%;",
+        "left: 0%;",
+        "transform: rotate(0deg);"
+    ],
+    "left_p_div":[
+        "width: 3%;",
+        "height: 100%;",
+        "position: absolute;",
+        "top: 0;",
+        "left: 97%;",
+        "background: -webkit-gradient(linear, right top, left top, from(rgba(0, 0, 0, .16)), to(rgba(0,0,0,0)));"
+    ],
+    "right_p_div":[
+        "width: 3%;",
+        "height: 100%;",
+        "background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, .16)), to(rgba(0,0,0,0)));"    
     ],
 
 }
@@ -79,7 +148,7 @@ function create_pages(book){
         console.log("偶数ページ");
     }
     // 奇数ページなら最後両開き
-    else if(page_num%2 === 0){
+    else if(page_num%2 === 1){
         console.log(page_num%2);
         console.log("ki数ページ");
     }
@@ -108,10 +177,72 @@ function add_style(){
         styleSheet.addRule("#p1", styles["p1"][i]);
     }
 
+    // p2以降左ページのスタイル
+    for(let i=2;i<=page_num;i++){
+        page_r = "r" + i;
+        page_p = "p" + i;
+
+        // 偶数ページ
+        if(i%2 === 0){
+            for(let i in styles["left_r"]){
+                styleSheet.addRule("#"+ page_r, styles["left_r"][i]);
+            }
+            for(let i in styles["left_p"]){
+                styleSheet.addRule("#"+ page_p, styles["left_p"][i]);
+            }
+            for(let i in styles["left_r_is-turned"]){
+                styleSheet.addRule("#"+ page_r + ".is-turned", styles["left_r_is-turned"][i]);
+            }
+            for(let i in styles["left_p_is-turned"]){
+                styleSheet.addRule("#"+ page_p + ".is-turned", styles["left_p_is-turned"][i]);
+            }
+            for(let i in styles["left_p_div"]){
+                styleSheet.addRule("#"+ page_p + " > div", styles["left_p_div"][i]);
+            }
+        }
+
+        // 奇数ページ
+        else if(i%2 === 1){
+            for(let i in styles["right_r"]){
+                styleSheet.addRule("#"+ page_r, styles["right_r"][i]);
+            }
+            for(let i in styles["right_p"]){
+                styleSheet.addRule("#"+ page_p, styles["right_p"][i]);
+            }
+            for(let i in styles["right_r_is-turned"]){
+                styleSheet.addRule("#"+ page_r + ".is-turned", styles["right_r_is-turned"][i]);
+            }
+            for(let i in styles["right_p_is-turned"]){
+                styleSheet.addRule("#"+ page_p + ".is-turned", styles["right_p_is-turned"][i]);
+            }
+            for(let i in styles["right_p_div"]){
+                styleSheet.addRule("#"+ page_p + " > div", styles["right_p_div"][i]);
+            }
+        }
+
+    }
+
+    // if(document.getElementById("hoge")){
+    //     console.log("hoge");
+    // }else if(document.getElementById("p3")){
+    //     console.log("p3");
+    // }
+
     //p2以降は、存在の判定、r、z-indexに留意して実装
     //未実装
 }
 
+
+function toggle(){
+    console.log("clicked");
+    var childcontent = this.firstElementChild;
+    var nextcontent = this.nextElementSibling;
+    var nextchildcontent = nextcontent.firstElementChild;
+    this.classList.toggle("is-turned");
+    childcontent.classList.toggle("is-turned");
+    nextcontent.classList.toggle("is-turned");
+    nextchildcontent.classList.toggle("is-turned");
+}
 
 
 
@@ -125,6 +256,7 @@ function main(){
         create_pages(tp_book);
         add_style();
         console.log("turn_pages.jsをロードしました。");
+        document.getElementById("r2").addEventListener("click", toggle);
     }else{
         console.log("turn_pages.jsをロードに失敗しました。")
     }
