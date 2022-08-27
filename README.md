@@ -5,6 +5,7 @@ HTMLでめくることのできる本の作成
 ## Abstract
 
 ## Demo
+![turn_pages demo](./demo/turn_pages.gif)
 
 ## Usage
 
