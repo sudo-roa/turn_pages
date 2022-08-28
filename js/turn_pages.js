@@ -86,7 +86,7 @@ styles = {
         "left: 0%;",
         "transform: rotate(0deg);"
     ],
-    "left_p_div":[
+    "left_shadow":[
         "width: 3%;",
         "height: 100%;",
         "position: absolute;",
@@ -94,9 +94,12 @@ styles = {
         "left: 97%;",
         "background: -webkit-gradient(linear, right top, left top, from(rgba(0, 0, 0, .16)), to(rgba(0,0,0,0)));"
     ],
-    "right_p_div":[
+    "right_shadow":[
         "width: 3%;",
         "height: 100%;",
+        "position: absolute;",
+        "top: 0;",
+        "left: 0;",
         "background: -webkit-gradient(linear, left top, right top, from(rgba(0, 0, 0, .16)), to(rgba(0,0,0,0)));"    
     ],
 
@@ -132,6 +135,13 @@ function create_pages(book){
             var p_name = "p" + i;
             var r_name = "r" + i;
             div.setAttribute("id", r_name);
+            if(i%2 === 0){
+                shadowdiv.setAttribute("class", "left_shadow");
+            }
+            // 奇数ページなら最後両開き
+            else if(i%2 === 1){
+                shadowdiv.setAttribute("class", "right_shadow");
+            }
             innerdiv.setAttribute("id", p_name);
             innerdiv.replaceChildren(shadowdiv);
             div.replaceChildren(innerdiv);
@@ -140,6 +150,14 @@ function create_pages(book){
         }
     }
     book.append(fragment);
+
+    // 事前に書かれた文字を各ページに挿入していく
+    for(let i = page_num;i>=1;i--){
+        console.log(i);
+        var p_name = "p" + i;
+        var page = document.getElementById(p_name);
+        page.appendChild(book.childNodes[i*2-1]);
+    }
 
     // 未実装
     // 偶数ページなら最後右のページがない
@@ -177,6 +195,8 @@ function add_style(){
         styleSheet.addRule("#p1", styles["p1"][i]);
     }
 
+    //p2以降は、存在の判定、r、z-indexに留意して実装
+    //未完成
     // p2以降左ページのスタイル
     for(let i=2;i<=page_num;i++){
         page_r = "r" + i;
@@ -196,8 +216,8 @@ function add_style(){
             for(let i in styles["left_p_is-turned"]){
                 styleSheet.addRule("#"+ page_p + ".is-turned", styles["left_p_is-turned"][i]);
             }
-            for(let i in styles["left_p_div"]){
-                styleSheet.addRule("#"+ page_p + " > div", styles["left_p_div"][i]);
+            for(let i in styles["left_shadow"]){
+                styleSheet.addRule(".left_shadow", styles["left_shadow"][i]);
             }
         }
 
@@ -215,21 +235,16 @@ function add_style(){
             for(let i in styles["right_p_is-turned"]){
                 styleSheet.addRule("#"+ page_p + ".is-turned", styles["right_p_is-turned"][i]);
             }
-            for(let i in styles["right_p_div"]){
-                styleSheet.addRule("#"+ page_p + " > div", styles["right_p_div"][i]);
+            for(let i in styles["right_shadow"]){
+                styleSheet.addRule(".right_shadow", styles["right_shadow"][i]);
             }
         }
-
     }
-
     // if(document.getElementById("hoge")){
     //     console.log("hoge");
     // }else if(document.getElementById("p3")){
     //     console.log("p3");
     // }
-
-    //p2以降は、存在の判定、r、z-indexに留意して実装
-    //未実装
 }
 
 

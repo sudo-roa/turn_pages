@@ -10,9 +10,13 @@ HTMLでめくることのできる本の作成
 ## Usage
 
 ### HTML
-挿入したい部分に記述
+挿入したい部分に記述(page_numに合わせてtp_bookの中にdivを加える)
 ```html
-<div id="tp_book"></div>
+<div id="tp_book">
+  <div></div> <!-- 1ページ目の内容 -->
+  <div></div> <!-- 2ページ目の内容 -->
+  <div></div> <!-- 3ページ目の内容 -->
+</div>
 ```
 
 bodyの閉じタグ手前に記述
@@ -32,7 +36,10 @@ bodyの閉じタグ手前に記述
 - ページをめくる機能
 - 複数ページ対応
 - 本のページ内への記述
-- 本のデザイン
+- 本のデザイン（サイズ、装飾等）
+
+## 現時点でわかっている修正事項
+- 右ページのブレ(固定できると一番いいんだけど…)
 
 ## References
 - [pure CSS3 Page Flip Effect](http://www.romancortes.com/blog/pure-css3-page-flip-effect/)
