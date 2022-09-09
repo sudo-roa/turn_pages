@@ -1,4 +1,4 @@
-document.getElementById("r2").addEventListener("click", toggle);
+document.getElementById("w2").addEventListener("click", toggle);
 
 function toggle(){
     console.log("clicked");
